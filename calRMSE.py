@@ -50,8 +50,8 @@ def calRMSE(eventOutput, eventGt):
 # path1 = "./dataset/ImageReconstruction/ResConv/HRPre"
 # _H, _W, _T = [240, 180, 600]
 
-path = "./dataset/N-MNIST/SR_Test"
-path1 = "./dataset/N-MNIST/ResConv/HRPre"
+path = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test"
+path1 = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre"
 _H, _W, _T = [240, 180, 600]
 
 classList = os.listdir(os.path.join(path, 'HR'))

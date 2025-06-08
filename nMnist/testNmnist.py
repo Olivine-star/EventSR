@@ -20,16 +20,16 @@ def readNpSpikes(filename, timeUnit=1e-3):
     return event(npEvent[:, 1], npEvent[:, 2], npEvent[:, 3], npEvent[:, 0] * timeUnit * 1e3)
 
 
-savepath = '../dataset/N-MNIST/ResConv/HRPre'
-ckptPath = './ckpt/'
+savepath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre'
+ckptPath = 'D:/PycharmProjects/EventSR-ckpt/ckpt/'
 
 
 class mnistDataset(Dataset):
     def __init__(self):
         self.lrList = []
         self.hrList = []
-        self.hrPath = '../dataset/N-MNIST/SR_Test/HR'
-        self.lrPath = '../dataset/N-MNIST/SR_Test/LR'
+        self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/HR'
+        self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR'
         self.path = []
 
         self.H = 34

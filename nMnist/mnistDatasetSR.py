@@ -15,11 +15,11 @@ class mnistDataset(Dataset):
         self.lrList = []
         self.hrList = []
         if train:
-            self.hrPath = '../dataset/N-MNIST/SR_Train/HR'
-            self.lrPath = '../dataset/N-MNIST/SR_Train/LR'
+            self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/HR'
+            self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/LR'
         else:
-            self.hrPath = '../dataset/N-MNIST/SR_Test/HR'
-            self.lrPath = '../dataset/N-MNIST/SR_Test/LR'
+            self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/HR'
+            self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR'
 
         self.H = 34
         self.W = 34
