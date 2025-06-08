@@ -11,15 +11,21 @@ def readNpSpikes(filename, timeUnit=1e-3):
 
 
 class mnistDataset(Dataset):
-    def __init__(self, train=True):
+    def __init__(self, train=True, path_config='dataset_path.txt'):
         self.lrList = []
         self.hrList = []
+
+        # 读取路径配置文件
+        with open(path_config, 'r') as f:
+            lines = f.read().splitlines()
+            path_dict = {line.split('=')[0].strip(): line.split('=')[1].strip() for line in lines if '=' in line}
+
         if train:
-            self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/HR'
-            self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/LR'
+            self.hrPath = path_dict.get('train_hr', '')
+            self.lrPath = path_dict.get('train_lr', '')
         else:
-            self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/HR'
-            self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR'
+            self.hrPath = path_dict.get('test_hr', '')
+            self.lrPath = path_dict.get('test_lr', '')
 
         self.H = 34
         self.W = 34

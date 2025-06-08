@@ -20,16 +20,32 @@ def readNpSpikes(filename, timeUnit=1e-3):
     return event(npEvent[:, 1], npEvent[:, 2], npEvent[:, 3], npEvent[:, 0] * timeUnit * 1e3)
 
 
-savepath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre'
-ckptPath = 'D:/PycharmProjects/EventSR-ckpt/ckpt/'
+# -------------------------------
+# ✅ 路径读取函数（内联）
+# -------------------------------
+def load_path_config(path_config='dataset_path.txt'):
+    path_dict = {}
+    with open(path_config, 'r') as f:
+        for line in f:
+            if '=' in line:
+                key, val = line.strip().split('=', 1)
+                path_dict[key.strip()] = val.strip()
+    return path_dict
+
+# -------------------------------
+# ✅ 加载路径配置
+# -------------------------------
+paths = load_path_config()
+savepath = paths.get('savepath', '')
+ckptPath = paths.get('ckptPath', '')
 
 
 class mnistDataset(Dataset):
     def __init__(self):
         self.lrList = []
         self.hrList = []
-        self.hrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/HR'
-        self.lrPath = 'D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR'
+        self.hrPath = paths.get('test_hr', '')
+        self.lrPath = paths.get('test_lr', '')
         self.path = []
 
         self.H = 34

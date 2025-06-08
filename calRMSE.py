@@ -50,8 +50,25 @@ def calRMSE(eventOutput, eventGt):
 # path1 = "./dataset/ImageReconstruction/ResConv/HRPre"
 # _H, _W, _T = [240, 180, 600]
 
-path = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test"
-path1 = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre"
+def load_path_config(path_config='dataset_path.txt'):
+    path_dict = {}
+    with open(path_config, 'r') as f:
+        for line in f:
+            if '=' in line:
+                key, val = line.strip().split('=', 1)
+                path_dict[key.strip()] = val.strip()
+    return path_dict
+
+
+# path = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test"
+# path1 = "D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre"
+# _H, _W, _T = [240, 180, 600]
+
+
+paths = load_path_config()
+path = paths.get('sr_test_root', '')
+path1 = paths.get('savepath', '')
+
 _H, _W, _T = [240, 180, 600]
 
 classList = os.listdir(os.path.join(path, 'HR'))

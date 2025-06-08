@@ -1,0 +1,15 @@
+
+train_hr=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/HR
+train_lr=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Train/LR
+test_hr=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/HR
+test_lr=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR
+
+
+
+
+savepath=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre
+ckptPath=D:/PycharmProjects/EventSR-ckpt/ckpt/
+
+
+
+sr_test_root=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test
