@@ -46,8 +46,12 @@ def calRMSE(eventOutput, eventGt):
 # path1 = "./dataset/asl/ResConv/HRPre"
 # _H, _W, _T = [240, 180, 600]
 
-path = "./dataset/ImageReconstruction/SR_Test"
-path1 = "./dataset/ImageReconstruction/ResConv/HRPre"
+# path = "./dataset/ImageReconstruction/SR_Test"
+# path1 = "./dataset/ImageReconstruction/ResConv/HRPre"
+# _H, _W, _T = [240, 180, 600]
+
+path = "./dataset/N-MNIST/SR_Test"
+path1 = "./dataset/N-MNIST/ResConv/HRPre"
 _H, _W, _T = [240, 180, 600]
 
 classList = os.listdir(os.path.join(path, 'HR'))
@@ -58,7 +62,7 @@ RMSEListOurs, RMSEListOurs_s, RMSEListOurs_t = [], [], []
 i = 1
 for n in classList:
     print(n)
-    p1 = os.path.join(path, 'HRPre', n)              # Output
+    p1 = os.path.join(path1, n)              # Output
     p2 = os.path.join(path, 'HR', n)                 # Gt
 
     k = 1
@@ -79,6 +83,6 @@ for n in classList:
 
 print(sum(RMSEListOurs) / len(RMSEListOurs))
 
-
+#1
 with open(path1 + '/result.txt', 'w') as f:
     f.writelines('Ours RMSE: ' + str(sum(RMSEListOurs)/len(RMSEListOurs)) + ', Ours RMSE_s: ' + str(sum(RMSEListOurs_s)/ len(RMSEListOurs)) + ', Ours RMSE_t: ' + str(sum(RMSEListOurs_t)/ len(RMSEListOurs)) + '\n')
