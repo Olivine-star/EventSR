@@ -192,7 +192,7 @@ if __name__ == '__main__':
         npEvent = np.load(filename)
         return event(npEvent[:, 1], npEvent[:, 2], npEvent[:, 3], npEvent[:, 0] * timeUnit * 1e3)
 
-
+#
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
     x = readNpSpikes('/repository/lisiqi/DVS/Classification/N-MNIST/SR_Test/LR/4/10.npy')
