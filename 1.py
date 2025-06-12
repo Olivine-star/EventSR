@@ -4,8 +4,9 @@ import os
 import imageio
 
 # 读取事件流路径123
-npy_path = r'D:\PycharmProjects\EventSR\SR-ES1\EventStream-SR-main\dataset\N-MNIST\SR_Test\HR\0\0.npy'
-gif_output_path = r'D:\PycharmProjects\EventSR\SR-ES1\EventStream-SR-main\dataset\N-MNIST\SR_Test\HR\0\0.gif'
+# npy_path = r'D:\PycharmProjects\EventSR\SR-ES1\EventStream-SR-main\dataset\N-MNIST\SR_Train\LR\0\0.npy'
+npy_path = r'D:\PycharmProjects\EventSR\SR-ES1\EventStream-SR-main\dataset\N-MNIST\ResConv\HRPre\0\0.npy'
+gif_output_path = r'D:\PycharmProjects\EventSR-dataset\result_visual\0_HRPre.gif'
 
 # 加载事件流 (N, 4)
 events = np.load(npy_path)
