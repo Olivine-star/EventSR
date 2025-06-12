@@ -66,12 +66,16 @@ def load_path_config(path_config='dataset_path.txt'):
 
 
 paths = load_path_config()
-path = paths.get('sr_test_root', '')
-path1 = paths.get('savepath', '')
+path1 = paths.get('savepath', '')           # Output
+path2 = paths.get('sr_test_root', '')       # Gt
+
 
 _H, _W, _T = [240, 180, 600]
 
-classList = os.listdir(os.path.join(path, 'HR'))
+# 获取path2目录下HR文件夹中的所有文件名
+# 读取 Ground Truth 高分辨率事件数据路径下的所有类别名目录（例如 N-MNIST 的 0 到 9 类），
+# 后续会依次对每个类别目录中的样本进行 RMSE 评估。
+classList = os.listdir(os.path.join(path2, 'HR'))
 
 RMSEListOurs, RMSEListOurs_s, RMSEListOurs_t = [], [], []
 
@@ -80,7 +84,7 @@ i = 1
 for n in classList:
     print(n)
     p1 = os.path.join(path1, n)              # Output
-    p2 = os.path.join(path, 'HR', n)                 # Gt
+    p2 = os.path.join(path2, 'HR', n)                 # Gt
 
     k = 1
     sampleList = os.listdir(p2)

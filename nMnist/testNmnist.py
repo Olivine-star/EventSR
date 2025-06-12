@@ -1,3 +1,10 @@
+"""
+这一段代码的作用是：
+1.输入eventLr，低分辨率事件
+2.调用模型，对低分辨率事件eventLr进行预测，得到高分辨率事件保存为savepath（dataset_path.txt）下的.npy文件
+"""
+
+
 import sys
 sys.path.append('..')
 from model import NetworkBasic, Network1, Network2, Network3
@@ -83,8 +90,11 @@ class mnistDataset(Dataset):
         return len(self.lrList)
 
 
+# 创建一个mnistDataset对象
 testDataset = mnistDataset()
+# 打开保存路径下的ckpt.txt文件，以写入模式
 with open(os.path.join(savepath, 'ckpt.txt'), 'w') as f:
+    # 将ckptPath写入文件
     f.writelines(ckptPath)
 
 bs = 1
@@ -108,14 +118,17 @@ lossTime = lossEcm = 0
 
 for k, (eventLr, eventHr, path) in enumerate(testLoader):
     with torch.no_grad():
+        # 低分辨率事件输入的位置（test）
         eventLr = eventLr.to("cuda")
         eventHr = eventHr.to("cuda")
 
+        # 模型调用,对eventlr进行推理，生成高分辨率事件
         output = m(eventLr)
 
         eventList = getEventFromTensor(output)
         e = eventList[0]
         e = e[:, [0, 2, 1, 3]]
+        # 最后保存为 .npy 文件，输出路径为 savepath + 类别目录 + 文件名
         new_path = os.path.join(savepath, path[0])
         np.save(new_path, e.astype(np.int32))
 

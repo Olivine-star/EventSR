@@ -14,6 +14,8 @@ from statistic import Metric
 import slayerSNN as snn
 
 
+
+
 def main():
     args = parser.parse_args()
     shape = [34, 34, 350]
@@ -40,7 +42,14 @@ def main():
     iter_per_epoch = len(trainDataset) // bs
     time_last = datetime.datetime.now()
 
-    savePath = args.savepath
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    savePath = os.path.join(
+        args.savepath,
+        f"bs{args.bs}_lr{args.lr}_ep{args.epoch}_cuda{args.cuda}_{timestamp}"
+    )
+
+    os.makedirs(savePath, exist_ok=True)
+
     m, epoch0 = checkpoint_restore(m, savePath)
 
     maxEpoch = args.epoch

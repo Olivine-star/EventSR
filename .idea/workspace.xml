@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbcf5b44-9d9e-4dd1-a074-b254a565ff8a" name="Changes" comment="" />
+    <list default="true" id="bbcf5b44-9d9e-4dd1-a074-b254a565ff8a" name="Changes" comment="可视化v1">
+      <change beforePath="$PROJECT_DIR$/.idea/EventStream-SR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EventStream-SR.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calRMSE.py" beforeDir="false" afterPath="$PROJECT_DIR$/calRMSE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nMnist/dataset_path.txt" beforeDir="false" afterPath="$PROJECT_DIR$/nMnist/dataset_path.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nMnist/mnistDatasetSR.py" beforeDir="false" afterPath="$PROJECT_DIR$/nMnist/mnistDatasetSR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nMnist/testNmnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/nMnist/testNmnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nMnist/train.bat" beforeDir="false" afterPath="$PROJECT_DIR$/nMnist/train.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nMnist/trainNmnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/nMnist/trainNmnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ckpt.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ckpt.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,22 +31,78 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Olivine-star&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Olivine-star/EventSR.git&quot;,
+    &quot;accountId&quot;: &quot;33017da4-e334-468b-b4a2-7636211d260b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2NcgpYum3Yj6khxaZg4yrMga1bz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../E-OccSR-New" />
-    <property name="settings.editor.selected.configurable" value="web.server" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.mnistDatasetSR.executor": "Run",
+    "Python.trainNmnist.executor": "Run",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/PycharmProjects/pythonProject/EventSR",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\pythonProject\EventSR" />
+      <recent name="D:\PycharmProjects\pythonProject\EventSR\nMnist" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\pythonProject\EventSR" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.trainNmnist">
+    <configuration name="mnistDatasetSR" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EventStream-SR" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nMnist" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nMnist/mnistDatasetSR.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EventStream-SR" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -53,11 +123,44 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="trainNmnist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EventStream-SR" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nMnist" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nMnist/trainNmnist.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.trainNmnist" />
+        <item itemvalue="Python.mnistDatasetSR" />
         <item itemvalue="Python.model" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
+        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -71,13 +174,140 @@
       <workItem from="1680066703519" duration="523000" />
       <workItem from="1680419165135" duration="21000" />
       <workItem from="1690797582228" duration="252000" />
+      <workItem from="1749392775505" duration="8298000" />
+      <workItem from="1749452791582" duration="10858000" />
+      <workItem from="1749564960252" duration="157000" />
+      <workItem from="1749690510820" duration="16266000" />
     </task>
+    <task id="LOCAL-00001" summary="111">
+      <option name="closed" value="true" />
+      <created>1749392823899</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1749392823899</updated>
+    </task>
+    <task id="LOCAL-00002" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749395392723</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1749395392723</updated>
+    </task>
+    <task id="LOCAL-00003" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749395449409</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749395449409</updated>
+    </task>
+    <task id="LOCAL-00004" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749397185711</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749397185711</updated>
+    </task>
+    <task id="LOCAL-00005" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749397257259</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749397257259</updated>
+    </task>
+    <task id="LOCAL-00006" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749397347760</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749397347760</updated>
+    </task>
+    <task id="LOCAL-00007" summary="第一个版本">
+      <option name="closed" value="true" />
+      <created>1749397446115</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1749397446115</updated>
+    </task>
+    <task id="LOCAL-00008" summary="修改数据集为绝对路径">
+      <option name="closed" value="true" />
+      <created>1749399247322</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749399247322</updated>
+    </task>
+    <task id="LOCAL-00009" summary="修改数据集为txt读取">
+      <option name="closed" value="true" />
+      <created>1749403542400</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749403542400</updated>
+    </task>
+    <task id="LOCAL-00010" summary="修改数据集为txt读取">
+      <option name="closed" value="true" />
+      <created>1749455717856</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749455717856</updated>
+    </task>
+    <task id="LOCAL-00011" summary="修改数据集为txt读取">
+      <option name="closed" value="true" />
+      <created>1749455996039</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749455996039</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修改数据集为txt读取">
+      <option name="closed" value="true" />
+      <created>1749456062976</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749456062976</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修改数据集为txt读取">
+      <option name="closed" value="true" />
+      <created>1749456093264</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749456093264</updated>
+    </task>
+    <task id="LOCAL-00014" summary="可视化v1">
+      <option name="closed" value="true" />
+      <created>1749690565528</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749690565528</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="111" />
+    <MESSAGE value="第一个版本" />
+    <MESSAGE value="修改数据集为绝对路径" />
+    <MESSAGE value="修改数据集为txt读取" />
+    <MESSAGE value="可视化v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="可视化v1" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EventSR$mnistDatasetSR.coverage" NAME="mnistDatasetSR Coverage Results" MODIFIED="1749470955857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nMnist" />
     <SUITE FILE_PATH="coverage/EventStream_SR$model.coverage" NAME="model Coverage Results" MODIFIED="1679969609850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EventSR$trainNmnist.coverage" NAME="trainNmnist Coverage Results" MODIFIED="1749471351271" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nMnist" />
   </component>
 </project>
