@@ -1,3 +1,7 @@
+"""
+读取.npy文件，并返回一个event对象，并转化成张量
+"""
+
 import torch
 import numpy as np
 from torch.utils.data import Dataset
@@ -50,7 +54,7 @@ class mnistDataset(Dataset):
 
             # 循环遍历高分辨率图片列表
             for n in list:
-                # 将高分辨率图片路径添加到hrList中,hrList 是一个包含高分辨率事件文件路径的列表，用于存储高分辨率事件文件路径。
+                # 将高分辨率事件的路径添加到hrList中,hrList 是一个包含高分辨率事件文件路径的列表，用于存储高分辨率事件文件路径。
                 self.hrList.append(os.path.join(hp, n))
                 # 将低分辨率图片路径添加到lrList中
                 self.lrList.append(os.path.join(lp, n))
