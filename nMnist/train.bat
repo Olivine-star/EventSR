@@ -8,7 +8,7 @@ cd /d D:\PycharmProjects\pythonProject\EventSR\nMnist
 REM
 python trainNmnist.py ^
 --bs 64 ^
---savepath "D:/PycharmProjects/EventSR-ckpt/ckpt/" ^
+--savepath "D:/PycharmProjects/EventSR-ckpt/ckpt2/" ^
 --epoch 30 ^
 --showFreq 50 ^
 --lr 0.1 ^

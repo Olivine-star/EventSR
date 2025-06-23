@@ -6,8 +6,8 @@ test_lr=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/SR_Test/LR
 
 
 
-savepath=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv/HRPre
-ckptPath=D:/PycharmProjects/EventSR-ckpt/ckpt/bs64_lr0.1_ep30_cuda0_20250612_114751
+savepath=D:/PycharmProjects/EventSR-dataset/dataset/N-MNIST/ResConv2/HRPre
+ckptPath=D:/PycharmProjects/EventSR-ckpt/ckpt2/bs64_lr0.1_ep60_cuda0_20250617_184748
 
 
 

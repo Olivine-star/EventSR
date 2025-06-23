@@ -98,6 +98,7 @@ def main():
     m = NetworkBasic(netParams)
     # 将网络转换为并行计算模式，并将其移动到指定的设备上
     m = torch.nn.DataParallel(m).to(device)
+
     # 打印网络
     print(m)
 
@@ -128,7 +129,14 @@ def main():
     os.makedirs(savePath, exist_ok=True)
 
     # 从savePath路径中恢复模型m和epoch0
-    m, epoch0 = checkpoint_restore(m, savePath)
+    # m, epoch0 = checkpoint_restore(m, savePath)
+    #用不同的 --savepath(train.bat改路径) 开启全新训练；如果以后这个文件夹里有 ckpt.pth，又能自动续训，两者兼容。
+    ckpt_file = os.path.join(savePath, 'ckpt.pth')
+    if os.path.exists(ckpt_file):
+        m, epoch0 = checkpoint_restore(m, savePath)
+    else:
+        print("[INFO] No checkpoint found. Starting training from scratch.")
+        epoch0 = -1  # 从头开始训练
 
     # 设置最大训练轮数
     maxEpoch = args.epoch
