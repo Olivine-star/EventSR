@@ -1,5 +1,7 @@
 """
 读取.npy文件，并返回一个event对象，并转化成张量
+
+event.toSpikeTensor(torch.zeros((2, H, W, T)))把连续的异步事件流转换成一个固定形状的四维张量
 """
 
 import torch
@@ -71,8 +73,9 @@ class mnistDataset(Dataset):
 
         # 将低分辨率事件转换为张量,适应神经网络的输入要求
         # 这里的2代表两个通道，17代表高分辨率图像的高度，17代表高分辨率图像的宽度，self.nTimeBins代表时间长度
+        # toSpikeTensor用于将事件流（event stream）编码成脉冲张量（spike tensor）
         eventLr1 = eventLr.toSpikeTensor(torch.zeros((2, 17, 17, self.nTimeBins)))
-        # 将高分辨率事件转换为张量
+        # 将高分辨率事件转换为脉冲张量（spike tensor）
         eventHr1 = eventHr.toSpikeTensor(torch.zeros((2, 34, 34, self.nTimeBins)))
 
         # 断言高分辨率事件张量的和等于高分辨率事件列表中的事件数量
