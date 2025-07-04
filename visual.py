@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# 加载 .npy 文件
+# 加载 .npy 文件1
 file_path = r"D:\PycharmProjects\EventSR-dataset\dataset\N-MNIST\SR_Train\LR\0\0.npy"
 
 # file_path = r"D:\PycharmProjects\EventSR-dataset\dataset\N-MNIST\ResConv\HRPre\0\0.npy"
