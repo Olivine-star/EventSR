@@ -1,0 +1,188 @@
+# Dual-Channel EventSR Configuration File
+
+# Model Architecture Configuration
+model:
+  # SNN Channel Configuration
+  snn:
+    model_type: "NetworkBasic"  # Options: NetworkBasic, Network1, Network2, Network3
+    theta: [30, 50, 100]
+    tauSr: [1, 2, 4]
+    tauRef: [1, 2, 4]
+    scaleRef: [1, 1, 1]
+    tauRho: [1, 1, 10]
+    scaleRho: [10, 10, 100]
+  
+  # CNN Channel Configuration
+  cnn:
+    base_channels: 64
+    num_encoder_blocks: 3
+    use_temporal_cnn: false
+    temporal_frames: 8
+  
+  # Feature Fusion Configuration
+  fusion:
+    strategy: "adaptive"  # Options: adaptive, cross_attention, concatenation, element_wise
+    hidden_dim: 256
+    num_attention_heads: 8
+  
+  # Event Frame Generation Configuration
+  event_frames:
+    strategy: "time_based"  # Options: time_based, count_based, adaptive
+    num_frames: 8
+    time_window: 50.0  # milliseconds
+    event_count: 1000
+    normalize: true
+    polarity_channels: true
+  
+  # General Model Configuration
+  scale_factor: 2
+  input_channels: 2
+  output_channels: 2
+  output_format: "event_stream"  # Options: "event_stream", "event_frame"
+
+# Training Configuration
+training:
+  # Data Configuration
+  data:
+    batch_size: 16
+    num_workers: 4
+    shuffle: true
+    dataset_type: "mnistDatasetDualChannel"
+    shape: [17, 17, 350]
+  
+  # Optimization Configuration
+  optimizer:
+    type: "Adam"
+    lr: 0.001
+    amsgrad: true
+    weight_decay: 0.0001
+  
+  # Learning Rate Scheduling
+  lr_scheduler:
+    type: "ExponentialLR"
+    gamma: 0.95
+    step_size: 10
+  
+  # Loss Function Configuration
+  loss:
+    snn_weight: 1.0
+    cnn_weight: 1.0
+    fusion_weight: 2.0
+    temporal_weight: 5.0
+    use_temporal_consistency: true
+  
+  # Training Parameters
+  epochs: 100
+  save_interval: 10
+  log_interval: 10
+  validation_interval: 1
+  
+  # Checkpoint Configuration
+  checkpoint:
+    save_dir: "./ckpt_dual_channel/"
+    save_best: true
+    save_latest: true
+    resume_from: null  # Path to checkpoint to resume from
+
+# Evaluation Configuration
+evaluation:
+  metrics:
+    - "mse"
+    - "psnr"
+    - "ssim"
+    - "temporal_consistency"
+  
+  # Test Configuration
+  test:
+    batch_size: 8
+    save_outputs: true
+    output_dir: "./results/"
+    visualize: true
+
+# Hardware Configuration
+hardware:
+  device: "cuda"
+  cuda_devices: "0"
+  mixed_precision: false
+  deterministic: false
+  benchmark: true
+
+# Logging Configuration
+logging:
+  tensorboard:
+    log_dir: "./logs/"
+    log_interval: 10
+  
+  console:
+    level: "INFO"
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  file:
+    enabled: true
+    path: "./logs/training.log"
+    level: "DEBUG"
+
+# Experiment Configuration
+experiment:
+  name: "dual_channel_eventsr"
+  description: "Dual-channel architecture combining SNN and CNN for event super-resolution"
+  tags: ["dual-channel", "snn", "cnn", "event-sr", "fusion"]
+  
+  # Ablation Study Configuration
+  ablation:
+    enabled: false
+    studies:
+      - name: "fusion_strategies"
+        parameters:
+          fusion_strategy: ["adaptive", "cross_attention", "concatenation", "element_wise"]
+      
+      - name: "event_frame_strategies"
+        parameters:
+          event_frame_strategy: ["time_based", "count_based", "adaptive"]
+      
+      - name: "cnn_architectures"
+        parameters:
+          use_temporal_cnn: [true, false]
+          cnn_base_channels: [32, 64, 128]
+
+# Advanced Configuration
+advanced:
+  # Multi-scale Training
+  multi_scale:
+    enabled: false
+    scales: [1, 2, 4]
+    scale_weights: [1.0, 1.0, 1.0]
+  
+  # Progressive Training
+  progressive:
+    enabled: false
+    stages:
+      - epochs: 20
+        freeze_snn: false
+        freeze_cnn: true
+      - epochs: 20
+        freeze_snn: true
+        freeze_cnn: false
+      - epochs: 60
+        freeze_snn: false
+        freeze_cnn: false
+  
+  # Data Augmentation
+  augmentation:
+    enabled: false
+    temporal_shift: 0.1
+    spatial_flip: 0.5
+    noise_level: 0.01
+  
+  # Model Compression
+  compression:
+    enabled: false
+    pruning_ratio: 0.1
+    quantization: false
+
+# Validation Configuration
+validation:
+  split_ratio: 0.2
+  cross_validation: false
+  k_folds: 5
+  stratified: false

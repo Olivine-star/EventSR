@@ -2,13 +2,18 @@
 读取.npy文件，并返回一个event对象，并转化成张量
 
 event.toSpikeTensor(torch.zeros((2, H, W, T)))把连续的异步事件流转换成一个固定形状的四维张量
+
+Extended for dual-channel processing: supports both spike tensors and event frames
 """
 
 import torch
 import numpy as np
 from torch.utils.data import Dataset
 import os
+import sys
+sys.path.append('..')
 from slayerSNN.spikeFileIO import event
+from utils.event_frame_generator import EventFrameGenerator
 
 # 这个函数的作用是读取一个 .npy 文件，并返回一个 event 对象，其中时间数据被转换为毫秒
 def readNpSpikes(filename, timeUnit=1e-3):
@@ -88,4 +93,47 @@ class mnistDataset(Dataset):
     def __len__(self):
         # 返回低分辨率事件列表的长度
         return len(self.lrList)
+
+
+class mnistDatasetDualChannel(mnistDataset):
+    """
+    Extended MNIST dataset for dual-channel processing.
+    Supports both spike tensors and event frames generation.
+    """
+
+    def __init__(self, train=True, path_config='dataset_path.txt',
+                 event_frame_strategy='time_based', num_event_frames=8):
+        super(mnistDatasetDualChannel, self).__init__(train, path_config)
+
+        self.event_frame_strategy = event_frame_strategy
+        self.num_event_frames = num_event_frames
+
+        # Initialize event frame generators
+        self.lr_frame_generator = EventFrameGenerator(
+            height=17, width=17,
+            accumulation_strategy=event_frame_strategy,
+            num_frames=num_event_frames,
+            polarity_channels=True
+        )
+        self.hr_frame_generator = EventFrameGenerator(
+            height=34, width=34,
+            accumulation_strategy=event_frame_strategy,
+            num_frames=num_event_frames,
+            polarity_channels=True
+        )
+
+    def __getitem__(self, idx):
+        # Get original spike tensors
+        eventLr_tensor, eventHr_tensor = super().__getitem__(idx)
+
+        # Generate event frames for CNN processing
+        eventLr_frames = self.lr_frame_generator.events_to_frames(eventLr_tensor)
+        eventHr_frames = self.hr_frame_generator.events_to_frames(eventHr_tensor)
+
+        return {
+            'lr_spikes': eventLr_tensor,
+            'hr_spikes': eventHr_tensor,
+            'lr_frames': eventLr_frames,
+            'hr_frames': eventHr_frames
+        }
 
