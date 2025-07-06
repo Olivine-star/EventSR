@@ -172,6 +172,11 @@ def train_dual_channel():
     
     # Create model
     model = create_dual_channel_model(model_config).to(device)
+
+    # Apply CUDA fix immediately after moving to device
+    from utils.slayer_cuda_fix import fix_slayer_model
+    model.snn_channel = fix_slayer_model(model.snn_channel, device)
+    print("Applied slayerSNN CUDA fix to training model")
     
     # Loss function
     criterion = DualChannelLoss(

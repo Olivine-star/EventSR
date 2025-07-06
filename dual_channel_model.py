@@ -17,7 +17,9 @@ from utils.event_frame_generator import EventFrameGenerator, create_event_frames
 from utils.cnn_channel import CNNChannel, TemporalCNNChannel
 from utils.simple_cnn_channel import create_simple_cnn_channel
 from utils.feature_fusion import FeatureFusionModule, MultiScaleFusion
+from utils.simple_fusion import create_simple_fusion
 from utils.utils import getNeuronConfig
+from utils.slayer_cuda_fix import fix_slayer_model, apply_slayer_cuda_fix_hook
 
 
 class DualChannelEventSR(nn.Module):
@@ -55,9 +57,12 @@ class DualChannelEventSR(nn.Module):
         
         # Initialize SNN Channel (existing EventSR model)
         self.snn_channel = self._create_snn_model(
-            snn_model_type, netParams, snn_theta, snn_tauSr, 
+            snn_model_type, netParams, snn_theta, snn_tauSr,
             snn_tauRef, snn_scaleRef, snn_tauRho, snn_scaleRho
         )
+
+        # Apply CUDA fix hook to SNN channel
+        apply_slayer_cuda_fix_hook(self.snn_channel)
         
         # Initialize Event Frame Generator
         self.event_frame_generator = None  # Will be initialized dynamically
@@ -86,6 +91,7 @@ class DualChannelEventSR(nn.Module):
         
         # Flag to track initialization
         self._initialized = False
+        self._cuda_fixed = False
     
     def _create_snn_model(self, model_type: str, netParams: Dict[str, Any], 
                          theta: list, tauSr: list, tauRef: list, 
@@ -123,23 +129,35 @@ class DualChannelEventSR(nn.Module):
         self.snn_feature_dim = 2  # Default: same as input channels
         self.cnn_feature_dim = 2  # Default: same as input channels
 
-        # Initialize Fusion Module with default dimensions
-        self.fusion_module = FeatureFusionModule(
+        # Initialize Fusion Module with default dimensions (使用简化版本)
+        self.fusion_module = create_simple_fusion(
             snn_channels=self.snn_feature_dim,
             cnn_channels=self.cnn_feature_dim,
             output_channels=2,  # Final output channels
-            fusion_strategy=self.fusion_strategy
+            strategy='ultra_simple'  # 使用最简化的融合策略
         )
+
+        # Move fusion module to the same device as the model
+        device = next(self.parameters()).device
+        self.fusion_module = self.fusion_module.to(device)
 
         self._initialized = True
     
+    def _apply_cuda_fix_if_needed(self):
+        """Apply CUDA fix to SNN channel if needed."""
+        if not self._cuda_fixed and next(self.parameters()).is_cuda:
+            print("Applying slayerSNN CUDA fix...")
+            fix_slayer_model(self.snn_channel, 'cuda')
+            self._cuda_fixed = True
+            print("slayerSNN CUDA fix applied successfully")
+
     def forward(self, spike_input: torch.Tensor) -> Dict[str, torch.Tensor]:
         """
         Forward pass through dual-channel architecture.
-        
+
         Args:
             spike_input: Input spike tensor [B, C, H, W, T]
-            
+
         Returns:
             Dictionary containing:
                 - 'output': Final super-resolved output
@@ -147,6 +165,9 @@ class DualChannelEventSR(nn.Module):
                 - 'cnn_output': CNN pathway output
                 - 'fused_features': Fused features before final layer
         """
+        # Apply CUDA fix if needed
+        self._apply_cuda_fix_if_needed()
+
         # Initialize components if needed
         if not self._initialized:
             self._initialize_components(spike_input.shape)
