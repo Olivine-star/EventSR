@@ -11,6 +11,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 import argparse
+from pathlib import Path
 
 # Add project root to path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +20,7 @@ sys.path.insert(0, project_root)
 
 from dual_channel_model import create_dual_channel_model
 from mnistDatasetSR import mnistDatasetDualChannel
-from utils.slayer_cuda_fix import fix_slayer_model, check_slayer_cuda_status
+from utils.slayer_cuda_fix import fix_slayer_model
 import slayerSNN as snn
 
 
@@ -65,6 +66,49 @@ class RobustDualChannelLoss(nn.Module):
         }
 
 
+def save_model_checkpoint(model, optimizer, epoch, avg_loss, save_dir):
+    """
+    保存模型检查点
+
+    Args:
+        model: 要保存的模型
+        optimizer: 优化器
+        epoch: 当前epoch
+        avg_loss: 平均损失
+        save_dir: 保存目录
+
+    Returns:
+        保存的文件路径
+    """
+    # 确保保存目录存在
+    Path(save_dir).mkdir(parents=True, exist_ok=True)
+
+    # 创建文件名
+    filename = f"dual_channel_epoch_{epoch}_loss_{avg_loss:.6f}.pth"
+    filepath = os.path.join(save_dir, filename)
+
+    # 准备保存的数据
+    checkpoint = {
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': avg_loss,
+        'model_config': {
+            'model_type': 'dual_channel_eventsr',
+            'parameters': sum(p.numel() for p in model.parameters())
+        }
+    }
+
+    # 保存检查点
+    torch.save(checkpoint, filepath)
+
+    # 打印保存路径
+    full_path = os.path.abspath(filepath)
+    print(f"Model checkpoint saved to: {full_path}")
+
+    return full_path
+
+
 def robust_model_forward(model, input_tensor, max_retries=3):
     """稳健的模型前向传播，包含重试机制"""
     
@@ -106,7 +150,12 @@ def train_robust_dual_channel():
     parser.add_argument('--epoch', type=int, default=5, help='Number of epochs')
     parser.add_argument('--cuda', type=str, default='0', help='CUDA device')
     parser.add_argument('--j', type=int, default=2, help='Number of workers')
+    parser.add_argument('--savepath', type=str, default='./ckpt_dual_channel_robust/', 
+                        help='Path to save model checkpoints')
     args = parser.parse_args()
+    
+    # 创建保存目录
+    os.makedirs(args.savepath, exist_ok=True)
     
     # 设置设备
     os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda
@@ -177,7 +226,7 @@ def train_robust_dual_channel():
             print("Applied initial CUDA fix")
         
         print(f"Model created with {sum(p.numel() for p in model.parameters())} parameters")
-        
+
     except Exception as e:
         print(f"Model creation failed: {e}")
         return
@@ -185,11 +234,18 @@ def train_robust_dual_channel():
     # 创建损失函数和优化器
     criterion = RobustDualChannelLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-    
+
+    # 初始化训练变量
+    start_epoch = 0
+    best_val_loss = float('inf')
+
+    # 打印保存目录信息
+    print(f"Model checkpoints will be saved to: {os.path.abspath(args.savepath)}")
+
     # 训练循环
     print(f"Starting training for {args.epoch} epochs...")
-    
-    for epoch in range(args.epoch):
+
+    for epoch in range(start_epoch, args.epoch):
         model.train()
         epoch_loss = 0
         successful_batches = 0
@@ -267,9 +323,54 @@ def train_robust_dual_channel():
             if val_batches > 0:
                 avg_val_loss = val_loss / val_batches
                 print(f"Validation Loss: {avg_val_loss:.6f}")
+
+                # 保存模型检查点
+                save_model_checkpoint(model, optimizer, epoch, avg_loss, args.savepath)
+
+                # 如果是最佳模型，则保存为最佳检查点
+                if avg_val_loss < best_val_loss:
+                    best_val_loss = avg_val_loss
+                    best_filename = f"dual_channel_BEST_epoch_{epoch}_loss_{avg_val_loss:.6f}.pth"
+                    best_filepath = os.path.join(args.savepath, best_filename)
+
+                    checkpoint = {
+                        'epoch': epoch,
+                        'model_state_dict': model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'train_loss': avg_loss,
+                        'val_loss': avg_val_loss,
+                        'model_config': {
+                            'model_type': 'dual_channel_eventsr',
+                            'parameters': sum(p.numel() for p in model.parameters())
+                        }
+                    }
+                    torch.save(checkpoint, best_filepath)
+                    print(f"Best model saved to: {os.path.abspath(best_filepath)}")
+                    print(f"New best validation loss: {best_val_loss:.6f}")
+
+        # 如果不是验证epoch，仍然保存常规检查点
+        else:
+            save_model_checkpoint(model, optimizer, epoch, avg_loss, args.savepath)
     
-    print("Training completed!")
+    # 保存最终模型
+    final_filename = f"dual_channel_FINAL_epoch_{args.epoch-1}.pth"
+    final_filepath = os.path.join(args.savepath, final_filename)
+
+    final_checkpoint = {
+        'epoch': args.epoch - 1,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'model_config': {
+            'model_type': 'dual_channel_eventsr',
+            'parameters': sum(p.numel() for p in model.parameters())
+        }
+    }
+    torch.save(final_checkpoint, final_filepath)
+    print(f"Final model saved to: {os.path.abspath(final_filepath)}")
+    print(f"Training completed! All models saved to: {os.path.abspath(args.savepath)}")
 
 
 if __name__ == '__main__':
     train_robust_dual_channel()
+
+
